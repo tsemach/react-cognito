@@ -2,16 +2,17 @@ import React, { Fragment } from 'react';
 import Hero from './Hero';
 import HomeContent from './HomeContent';
 
-export default function Home() {
+export default function Home(props) {
   return (
     <Fragment>
-      <Hero />
+      {/* <Hero /> */}
+      <br></br>
       <div className="box cta">
         <p className="has-text-centered">
-          <span className="tag is-primary">New</span> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          This React application demostrate the use of AWS Cognito, user the Regsiter, Login, Logout, Forgot password and Change password to test it.
         </p>
       </div>
-      <HomeContent />
+      <HomeContent {...props}/>
     </Fragment>
   )
 }

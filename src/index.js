@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bulma/css/bulma.min.css';
-import './index.css';
+import './index.scss';
 import App from './App';
 import Amplify from 'aws-amplify';
 import config from './config';

@@ -98,15 +98,15 @@ export default class ProductAdmin extends Component {
                         value={this.state.newproduct.productname}
                         onChange={this.onAddProductNameChange}
                       />
-                    </div>
-                    <div className="control">
-                      <input 
+                    </div>handleAddProduct
+                    <div className="control">handleAddProduct
+                      <input handleAddProduct
                         className="input is-medium"
                         type="text" 
                         placeholder="Enter id"
                         value={this.state.newproduct.id}
                         onChange={this.onAddProductIdChange}
-                      />
+                      />handleAddProduct
                     </div>
                     <div className="control">
                       <button type="submit" className="button is-primary is-medium">
@@ -121,7 +121,7 @@ export default class ProductAdmin extends Component {
                   <div className="tile is-4 is-parent  is-vertical">
                     { 
                       this.state.products.map((product, index) => 
-                        <Product 
+                        <Product handleAddProduct
                           isAdmin={true}
                           handleUpdateProduct={this.handleUpdateProduct}
                           handleDeleteProduct={this.handleDeleteProduct} 
