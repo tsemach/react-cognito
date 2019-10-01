@@ -4,6 +4,11 @@ from: [AWS Cognito Tutorial Part I/II/III](https://www.youtube.com/watch?v=EaDMG
 
 This application implement several; AWS Cognito functionalities with aws-amplify, a Javascript client for Cognito  
 
+>Note: before running the application make sure you have the right .env file:
+REACT_APP_COGNITO_REGION=<region-name>
+REACT_APP_COGNITO_POOL_ID=<cognito-user-pool-id>
+REACT_APP_COGNITO_CLIENT_ID=<cognito-app-client-id>
+
 1. Register
 2. Login
 3. Logout

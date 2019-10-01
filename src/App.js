@@ -19,6 +19,8 @@ import { Auth } from 'aws-amplify';
 library.add(faEdit);
 
 console.log("In App");
+console.log("process.env.REACT_APP_COGNITO_REGION", process.env.REACT_APP_COGNITO_REGION);
+
 class App extends Component {
   state = {
     isAuthenticated: false,
