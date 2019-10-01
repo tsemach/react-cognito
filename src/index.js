@@ -11,6 +11,7 @@ console.log(config.cognito.REGION);
 console.log(config.cognito.USER_POOL_ID);
 console.log(config.cognito.APP_CLIENT_ID);
 
+console.log("index.js:", process.env.REACT_COGNITO_POOL_ID);
 Amplify.configure({
     Auth: {
         mandatorySignId: true,

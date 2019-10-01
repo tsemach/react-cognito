@@ -54,7 +54,7 @@ class App extends Component {
     this.setState({isAuthenticating: false});
   }
 
-  render() {
+  render() {    
     const authProps = {
       isAuthenticated: this.state.isAuthenticated,
       user: this.state.user,
