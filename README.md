@@ -1,68 +1,138 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## AWS Cognito Example 
 
-## Available Scripts
+from: [AWS Cognito Tutorial Part I/II/III](https://www.youtube.com/watch?v=EaDMG4amEfk)
 
-In the project directory, you can run:
+This application implement several; AWS Cognito functionalities with aws-amplify, a Javascript client for Cognito  
 
-### `npm start`
+1. Register
+2. Login
+3. Logout
+4. Forgot password
+5. Change password
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Configuration
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Configure aws-amplify with the region, user_pool_id and app_client_id as define in AWS Cognito console
 
-### `npm test`
+````javascript
+import { Auth } from 'aws-amplify';
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Amplify.configure({
+    Auth: {
+        mandatorySignId: true,
+        region: config.cognito.REGION,
+        userPoolId: config.cognito.USER_POOL_ID,
+        userPoolWebClientId: config.cognito.APP_CLIENT_ID
+    }
+});
+````
+## Register
 
-### `npm run build`
+When user enter username, email and passowrd using a form call to Auth.signUp(..) to initiate a signUp procecure. Cognito send an email to user for verification (if configure in the user-pool).
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+````javascript
+import { Auth } from 'aws-amplify';
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+const { username, email, password } = this.state;
+try {
+  const signUpResponse = await Auth.signUp({
+    username, 
+    password, 
+    attributes: {
+      email
+    }
+  });  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  // redirect to welcome page
+  this.props.history.push("/welcome")
+}
+catch (error) {
+  let err = null;
+  !error.message ? err = {"message": error } : err = error;
+  this.setState({
+    errors: {
+      ...this.state.errors,
+      cognito: err
+    }
+  })
+}
+````
 
-### `npm run eject`
+## Login
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+If user press login and fill in username, password call to Auth.signIn(..) to sign the user in. if pass with no exception then save the user information in the a global App using the `setAuthStatus` and `setUser`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+````javascript
+import { Auth } from 'aws-amplify';
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+try {
+      const user = await Auth.signIn(this.state.username, this.state.password);
+      this.props.auth.setAuthStatus(true);
+      this.props.auth.setUser(user);
+      this.props.history.push("/")
+     }
+    catch (error) {
+      let err = null;
+      !error.message ? err = {"message": error } : err = error;
+      this.setState({
+        errors: {
+          ...this.state.errors,
+          cognito: err
+        }
+      })
+    }    
+  };
+````
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Logout
 
-## Learn More
+Call to Auth.signOut(..) and update the App user state.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+````javascript
+import { Auth } from 'aws-amplify';
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+try {
+  Auth.signOut();
+  this.props.auth.setAuthStatus(false);
+  this.props.auth.setUser(null);
+}
+catch (error) {
+  console.log(error.message)
+}
+````
 
-### Code Splitting
+### Forgot Password
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+if user select forgot password link then call to Auth.forgotPassword(..) and redirect the client to a forgot password page so he can enter new credential.
 
-### Analyzing the Bundle Size
+````javascript
+import { Auth } from 'aws-amplify';
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+try {
+  await Auth.forgotPassword(this.state.email);
+  this.props.history.push('/forgotpasswordverification');
+}
+catch (e) {
+  console.log(e);
+}
+````
 
-### Making a Progressive Web App
+### Change Password
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+After user enter new password call to Auth to update it
+````javascript
+import { Auth } from 'aws-amplify';
 
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+try {
+  const user = await Auth.currentAuthenticatedUser();
+  await Auth.changePassword(
+    user,
+    this.state.oldpassword,
+    this.state.newpassword
+  );
+  this.props.history.push('/changepasswordconfirmation');
+}
+catch (e) {
+  console.log(e)
+}
+````
