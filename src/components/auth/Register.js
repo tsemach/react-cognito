@@ -72,6 +72,7 @@ class Register extends Component {
   }
 
   render() {
+    console.log("Registry:render");
     return (
       <section className="section auth">
         <div className="container">

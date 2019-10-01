@@ -1,44 +1,119 @@
 import React from 'react'
+import { Component } from 'react';
+import { Auth } from 'aws-amplify';
 
-export default function HomeContent() {
-  return (
-    <section className="container">
-        <div className="columns features">
-            <div className="column is-4">
-                <div className="card is-shady">
-                    <div className="card-content">
-                        <div className="content">
-                            <h4>Energy conservation</h4>
-                            <p>Purus semper eget duis at tellus at urna condimentum mattis. Non blandit massa enim nec. Integer enim neque volutpat ac tincidunt vitae semper quis. Accumsan tortor posuere ac ut consequat semper viverra nam.</p>
-                            <p><a href="/">Learn more</a></p>
+class HomeContent extends Component {
+    
+  handleRegister = () => {
+    console.log("HomeContent::handleRegister, auth:", this.props.auth);
+    this.props.history.push("/registry")
+  }  
+
+  handleLogin = () => {
+    console.log("HomeContent::handleLogin, auth:", this.props.auth);
+  }  
+
+  handleForgotPassword = () => {
+    console.log("HomeContent::handleForgotPassword, auth:", this.props.auth);
+  }  
+
+  handleChangePassword = () => {
+    console.log("HomeContent::handleChangePassword, auth:", this.props.auth);
+  }  
+
+  handleLogout = (event) => {
+    console.log("HomeContent::handleLogin, auth:", this.props.auth);
+    event.preventDefault();
+    try {
+      Auth.signOut();
+      this.props.auth.setAuthStatus(false);
+      this.props.auth.setUser(null);
+    }
+    catch (error) {
+      console.log(error.message)
+    }
+  }  
+
+  render() {
+    console.log("HomeContent::render, auth:", this.props);
+    return (
+        <section className="container">
+            <div className="columns features">
+                
+                <div className="column is-3">
+                    <div className="card is-shady">
+                        <div className="card-content big-button">
+                            <a href="/register">
+                                <div className="content" onClick={this.handleRegister}>
+                                    <h4>Register</h4>
+                                    <p>Click here to register using aws-amplify Auth.signUp(..)</p>
+                                    <p><a href="/">Learn more</a></p>                                
+                                </div>  
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="column is-4">
-                <div className="card is-shady">
-                    <div className="card-content">
-                        <div className="content">
-                            <h4>Water conservation</h4>
-                            <p>Ut venenatis tellus in metus vulputate. Amet consectetur adipiscing elit pellentesque. Sed arcu non odio euismod lacinia at quis risus. Faucibus turpis in eu mi bibendum neque egestas cmonsu songue. Phasellus vestibulum lorem
-                            sed risus.</p>
-                            <p><a href="/">Learn more</a></p>
+                
+                <div className="column is-3">
+                    <div className="card is-shady">
+                        <div className="card-content big-button">
+                            <a href="/login">
+                                <div className="content" onClick={this.handleLogin}>
+                                    <h4>Login</h4>
+                                    <p>Click here to register using aws-amplify Auth.signIn(..)</p>
+                                    <p><a href="/">Learn more</a></p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="column is-4">
-                <div className="card is-shady">
-                     <div className="card-content">
-                        <div className="content">
-                            <h4>Solar energy</h4>
-                            <p>Imperdiet dui accumsan sit amet nulla facilisi morbi. Fusce ut placerat orci nulla pellentesque dignissim enim. Libero id faucibus nisl tincidunt eget nullam. Commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                            <p><a href="/">Learn more</a></p>
+
+                <div className="column is-3">
+                    <div className="card is-shady">
+                        <div className="card-content big-button">
+                            <a href="/logout">
+                                <div className="content" onClick={this.handleLogout}>
+                                    <h4>Logout</h4>
+                                    <p>Click here to register using aws-amplify Auth.signOut(..)</p>
+                                    <p><a href="/">Learn more</a></p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
+
+                <div className="column is-3">
+                    <div className="card is-shady">
+                        <div className="card-content big-button">
+                            <a href="/forgotpassword">
+                                <div className="content" onClick={this.handleForgotPassword}>
+                                    <h4>Forgot Password</h4>
+                                    <p>Click here to register using aws-amplify Auth.forgotPassword(..)</p>
+                                    <p><a href="/">Learn more</a></p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div className="column is-3">
+                    <div className="card is-shady">
+                        <div className="card-content big-button">
+                            <a href="/changepassword">
+                                <div className="content" onClick={this.handleChangePassword}>
+                                    <h4>Change Password</h4>
+                                    <p>Click here to register using aws-amplify Auth.changePassword(..)</p>
+                                    <p><a href="/">Learn more</a></p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </div>
-    </section>
-  )
+        </section>
+    )
+  }
 }
+
+export default HomeContent;

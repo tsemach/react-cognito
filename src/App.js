@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import './App.css';
+import './App.scss';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Products from './components/Products';
@@ -19,6 +19,8 @@ import { Auth } from 'aws-amplify';
 library.add(faEdit);
 
 console.log("In App");
+console.log("process.env.REACT_APP_COGNITO_REGION", process.env.REACT_APP_COGNITO_REGION);
+
 class App extends Component {
   state = {
     isAuthenticated: false,
@@ -54,7 +56,7 @@ class App extends Component {
     this.setState({isAuthenticating: false});
   }
 
-  render() {
+  render() {    
     const authProps = {
       isAuthenticated: this.state.isAuthenticated,
       user: this.state.user,
@@ -69,8 +71,8 @@ class App extends Component {
             <Navbar auth={authProps}/>
             <Switch>
               <Route exact path="/" render={(props) => <Home {...props} auth={authProps} />} />
-              <Route exact path="/products" render={(props) => <Products {...props} auth={authProps} />} />
-              <Route exact path="/admin" render={(props) => <ProductAdmin {...props} auth={authProps} />} />
+              {/* <Route exact path="/products" render={(props) => <Products {...props} auth={authProps} />} />
+              <Route exact path="/admin" render={(props) => <ProductAdmin {...props} auth={authProps} />} /> */}
               <Route exact path="/login" render={(props) => <LogIn {...props} auth={authProps} />} />
               <Route exact path="/register" render={(props) => <Register {...props} auth={authProps} />} />
               <Route exact path="/forgotpassword" render={(props) => <ForgotPassword {...props} auth={authProps} />} />

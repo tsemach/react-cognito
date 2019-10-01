@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bulma/css/bulma.min.css';
-import './index.css';
+import './index.scss';
 import App from './App';
 import Amplify from 'aws-amplify';
 import config from './config';
@@ -11,6 +11,7 @@ console.log(config.cognito.REGION);
 console.log(config.cognito.USER_POOL_ID);
 console.log(config.cognito.APP_CLIENT_ID);
 
+console.log("index.js:", config);
 Amplify.configure({
     Auth: {
         mandatorySignId: true,
