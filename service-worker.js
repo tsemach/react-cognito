@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/react-cognito/precache-manifest.d8095bfd4576a10f4b52a672ba7f415f.js"
+  "/react-cognito/precache-manifest.2ecb5fdcef94503a651f2d896503114a.js"
 );
 
 workbox.clientsClaim();
