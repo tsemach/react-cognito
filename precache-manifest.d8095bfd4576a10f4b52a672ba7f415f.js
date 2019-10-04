@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "c69dc8bcec749dfec499",
+    "revision": "dd3d52f0d726f3b9e539",
     "url": "/react-cognito/static/css/main.b6cd7ba8.chunk.css"
   },
   {
-    "revision": "c69dc8bcec749dfec499",
-    "url": "/react-cognito/static/js/main.c02ee1b5.chunk.js"
+    "revision": "dd3d52f0d726f3b9e539",
+    "url": "/react-cognito/static/js/main.bd42289f.chunk.js"
   },
   {
     "revision": "45356b452819f1787c79",
@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/react-cognito/static/js/2.f507ef62.chunk.js"
   },
   {
-    "revision": "64eecdcb1ad3b83852c6153b9317e0e6",
+    "revision": "4e89b6d40c0951e4c2cb0293f87df651",
     "url": "/react-cognito/index.html"
   }
 ];
